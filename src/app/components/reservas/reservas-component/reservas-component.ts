@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-home-component',
+  selector: 'app-reservas-component',
   imports: [],
-  templateUrl: './home-component.html',
-  styleUrl: './home-component.scss'
+  templateUrl: './reservas-component.html',
+  styleUrl: './reservas-component.scss'
 })
-export class HomeComponent {
+export class ReservasComponent {
 
   isUserMenuOpen = false
   /**

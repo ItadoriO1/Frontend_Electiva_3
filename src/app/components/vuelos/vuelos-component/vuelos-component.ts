@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-home-component',
+  selector: 'app-vuelos-component',
   imports: [],
-  templateUrl: './home-component.html',
-  styleUrl: './home-component.scss'
+  templateUrl: './vuelos-component.html',
+  styleUrl: './vuelos-component.scss'
 })
-export class HomeComponent {
-
+export class VuelosComponent {
   isUserMenuOpen = false
   /**
   **
