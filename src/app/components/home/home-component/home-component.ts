@@ -1,14 +1,25 @@
 import { Component } from '@angular/core';
+import { Persona } from '../../../models/persona';
+import { AuthService } from '../../../services/auth/auth-service';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-home-component',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home-component.html',
   styleUrl: './home-component.scss'
 })
 export class HomeComponent {
 
+  constructor(private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ){}
+
+  usuario: Persona|null = null
   isUserMenuOpen = false
+  isAdmin = false
+  isUserRegistered = false
   /**
   **
    * Funcion para mostrar o ocultar los objetos en el menu
@@ -29,5 +40,24 @@ export class HomeComponent {
    */
   handleRegister(): void {
     window.location.href = '/register'
+  }
+
+  ngOnInit(): void {
+    this.authService.getUsuarioActual().subscribe({
+      next: response => {
+        console.log(response)
+        this.usuario = response;
+        this.isUserRegistered = !!response;
+        this.isAdmin = response?.rol === 'Admin';
+        this.cdr.detectChanges();
+      },
+      error: err => {
+        // Por ejemplo, si no hay token o el usuario no está autenticado
+        this.usuario = null;
+        this.isUserRegistered = false;
+        this.isAdmin = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

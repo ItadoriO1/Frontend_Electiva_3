@@ -250,4 +250,52 @@
       font-size: 1.75rem;
     }
   }
-  
+
+/* Mensaje flotante */
+.mensaje-flotante {
+  position: fixed; /* flota sobre todo */
+  top: 20px; /* distancia desde arriba */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: fadeInOut 3s ease-in-out; /* animación suave */
+  animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+}
+
+/* Éxito */
+.success {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+
+/* Error */
+.error {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+/* Animación de aparición/desaparición */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+}

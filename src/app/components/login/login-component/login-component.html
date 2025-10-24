@@ -1,4 +1,7 @@
 <div class="login-container">
+  <div *ngIf="mostrarMensaje" [ngClass]="tipoMensaje" class="mensaje-flotante">
+    {{ mensaje }}
+  </div>
   <div class="login-form-section">
     <div class="login-form-wrapper">
       <div class="brand">
@@ -19,7 +22,7 @@
         <h2 class="login-title">Iniciar Sesión</h2>
       </div>
 
-      <form class="login-form" (ngSubmit)="onSubmit()">
+      <form class="login-form" (ngSubmit)="loggin(email, password)">
         <div class="form-group">
           <label for="email" class="form-label">Correo Electrónico</label>
           <input

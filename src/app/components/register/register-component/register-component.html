@@ -1,4 +1,7 @@
     <div class="registro-container">
+        <div *ngIf="mostrarMensaje" [ngClass]="tipoMensaje" class="mensaje-flotante">
+            {{ mensaje }}
+        </div>
         <div class="registro-card">
             <!-- Header -->
             <div class="registro-header">
@@ -21,6 +24,7 @@
                         type="text" 
                         id="cedula" 
                         name="cedula" 
+                        [(ngModel)]="cedula"
                         placeholder="Ej: 1234567890" 
                         required
                         class="form-input">
@@ -37,6 +41,7 @@
                             type="text" 
                             id="nombre" 
                             name="nombre" 
+                            [(ngModel)]="nombre"
                             placeholder="Ej: María" 
                             required
                             class="form-input">
@@ -49,7 +54,8 @@
                         <input 
                             type="text" 
                             id="apellido" 
-                            name="apellido" 
+                            name="apellido"
+                            [(ngModel)]="apellido" 
                             placeholder="Ej: Rojas" 
                             required
                             class="form-input">
@@ -65,7 +71,8 @@
                     <input 
                         type="tel" 
                         id="telefono" 
-                        name="telefono" 
+                        name="telefono"
+                        [(ngModel)]="telefono" 
                         placeholder="Ej: +593 99 123 4567" 
                         required
                         class="form-input">
@@ -79,7 +86,8 @@
                     <input 
                         type="email" 
                         id="email" 
-                        name="email" 
+                        name="email"
+                        [(ngModel)]="email" 
                         placeholder="tu.correo@ejemplo.com" 
                         required
                         class="form-input">
@@ -94,7 +102,8 @@
                     <input 
                         type="text" 
                         id="direccion" 
-                        name="direccion" 
+                        name="direccion"
+                        [(ngModel)]="direccion" 
                         placeholder="Ej: Av. Principal 123, Quito" 
                         required
                         class="form-input">
@@ -109,7 +118,8 @@
                         <input 
                             type="password" 
                             id="password" 
-                            name="password" 
+                            name="password"
+                            [(ngModel)]="password" 
                             placeholder="••••••••" 
                             required
                             class="form-input">
@@ -122,7 +132,8 @@
                         <input 
                             type="password" 
                             id="confirmPassword" 
-                            name="confirmPassword" 
+                            name="confirmPassword"
+                            [(ngModel)]="confirmPassword" 
                             placeholder="••••••••" 
                             required
                             class="form-input">
@@ -143,7 +154,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="submit-button">
+                <button type="button" class="submit-button" (click)="addUsuario(cedula,nombre,apellido,telefono,email,direccion,password,confirmPassword)">
                     <i class="fas fa-user-plus"></i>
                     Crear Cuenta
                 </button>

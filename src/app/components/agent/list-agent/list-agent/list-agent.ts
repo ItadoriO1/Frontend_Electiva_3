@@ -6,6 +6,10 @@ import { IaService } from '../../../../services/ia/ia-service'
 import { ResponseFormatService } from '../../../../services/response-format/response-format-service'
 import { NgZone } from '@angular/core'
 import { ChangeDetectorRef } from '@angular/core'
+import { Persona } from '../../../../models/persona'
+import { AuthService } from '../../../../services/auth/auth-service'
+
+
 
 /**
  * Interfaz que define la estructura de un mensaje en el chat
@@ -56,6 +60,11 @@ export class ListAgent implements AfterViewChecked {
   //Variable para controlar visibilidad del menu
   isUserMenuOpen = false
 
+  usuario: Persona|null = null
+
+  isAdmin = false
+
+
   /**
    * Constructor que inyecta los servicios necesarios
    * @param speechService Servicio para reconocimiento de voz
@@ -69,7 +78,8 @@ export class ListAgent implements AfterViewChecked {
     private iaService: IaService,
     private responseFormatService: ResponseFormatService,
     private ngZone: NgZone,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) {}
 
   // Flag para controlar cuándo hacer scroll automático
@@ -80,6 +90,8 @@ export class ListAgent implements AfterViewChecked {
 
   // Mensaje de error si algo falla
   errorText: string | null = null
+
+  isUserRegistered = false
 
   /**
    * Hook del ciclo de vida que se ejecuta después de cada verificación de vista
@@ -468,5 +480,23 @@ export class ListAgent implements AfterViewChecked {
    */
   handleRegister(): void {
     window.location.href = '/register'
+  }
+
+  ngOnInit(): void {
+    this.authService.getUsuarioActual().subscribe({
+      next: usuario => {
+        this.usuario = usuario;
+        this.isUserRegistered = !!usuario;
+        this.isAdmin = usuario?.rol === 'Admin';
+        this.cdr.detectChanges();
+      },
+      error: err => {
+        // Por ejemplo, si no hay token o el usuario no está autenticado
+        this.usuario = null;
+        this.isUserRegistered = false;
+        this.isAdmin = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

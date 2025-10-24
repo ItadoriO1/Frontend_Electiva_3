@@ -3,7 +3,7 @@
     <div class="sidebar-header">
       <h2 class="sidebar-title">Portal de Operaciones</h2>
     </div>
-    
+
     <nav class="sidebar-nav">
       <ul class="menu-list">
         <li class="menu-item">
@@ -30,6 +30,12 @@
             <span>Mis reservaciones</span>
           </a>
         </li>
+        <li class="menu-item" *ngIf="isAdmin">
+          <a href="/empleados">
+            <i class="fas fa-users"></i>
+            <span>Empleados</span>
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -38,18 +44,22 @@
       <div class="user-menu">
         <div class="user-info" (click)="toggleUserMenu()">
           <i class="fas fa-user-circle"></i>
-          <span>Usuario</span>
+          <span>{{ usuario?.nombre || 'Invitado' }}</span>
           <i class="fas fa-chevron-down dropdown-arrow" [class.rotate]="isUserMenuOpen"></i>
         </div>
-        
+
         <div class="user-dropdown" [class.show]="isUserMenuOpen">
-          <button class="dropdown-item" (click)="handleLogin()">
+          <button *ngIf="!isUserRegistered" class="dropdown-item" (click)="handleLogin()">
             <i class="fas fa-sign-in-alt"></i>
             <span>Iniciar Sesión</span>
           </button>
-          <button class="dropdown-item" (click)="handleRegister()">
+          <button *ngIf="!isUserRegistered" class="dropdown-item" (click)="handleRegister()">
             <i class="fas fa-user-plus"></i>
             <span>Registrarse</span>
+          </button>
+          <button class="dropdown-item" (click)="handleRegister()">
+            <i class="fas fa-user-cog"></i>
+            <span>Editar Perfil</span>
           </button>
         </div>
       </div>
@@ -80,7 +90,7 @@
                 <i class="fas fa-volume-up"></i>
               </button>
             </div>
-            
+
             <div *ngIf="isLoading" class="message ai loading-message">
               <div class="loading-indicator">
                 <div class="typing-dots">
@@ -96,32 +106,18 @@
 
         <div class="input-area">
           <div class="input-wrapper" [class.loading]="isLoading">
-            <input 
-              type="text" 
-              class="message-input" 
-              [(ngModel)]="messageText"
-              (keypress)="onKeyPress($event)"
-              placeholder="{{ isLoading ? 'Esperando respuesta...' : 'Escribe tu mensaje...' }}"
-              [disabled]="isLoading"
-            >
-            <button 
-              class="send-button" 
-              (click)="sendMessage()"
-              [disabled]="isLoading || !messageText.trim()"
-              [class.disabled]="isLoading || !messageText.trim()"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <input type="text" class="message-input" [(ngModel)]="messageText" (keypress)="onKeyPress($event)"
+              placeholder="{{ isLoading ? 'Esperando respuesta...' : 'Escribe tu mensaje...' }}" [disabled]="isLoading">
+            <button class="send-button" (click)="sendMessage()" [disabled]="isLoading || !messageText.trim()"
+              [class.disabled]="isLoading || !messageText.trim()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>
             </button>
 
-            <button 
-              class="mic-button" 
-              (click)="startListening()"
-              [disabled]="isLoading"
-              [class.disabled]="isLoading"
-            >
+            <button class="mic-button" (click)="startListening()" [disabled]="isLoading" [class.disabled]="isLoading">
               <i class="fas fa-microphone"></i>
             </button>
           </div>

@@ -30,6 +30,12 @@
               <span>Mis reservaciones</span>
             </a>
           </li>
+          <li class="menu-item" *ngIf="isAdmin">
+            <a href="/empleados">
+                <i class="fas fa-users"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
         </ul>
       </nav>
   
@@ -38,18 +44,22 @@
         <div class="user-menu">
           <div class="user-info" (click)="toggleUserMenu()">
             <i class="fas fa-user-circle"></i>
-            <span>Usuario</span>
+            <span>{{usuario?.nombre || 'Invitado' }}</span>
             <i class="fas fa-chevron-down dropdown-arrow" [class.rotate]="isUserMenuOpen"></i>
           </div>
           
           <div class="user-dropdown" [class.show]="isUserMenuOpen">
-            <button class="dropdown-item" (click)="handleLogin()">
+            <button *ngIf="!isUserRegistered" class="dropdown-item" (click)="handleLogin()">
               <i class="fas fa-sign-in-alt"></i>
               <span>Iniciar Sesión</span>
             </button>
-            <button class="dropdown-item" (click)="handleRegister()">
+            <button *ngIf="!isUserRegistered" class="dropdown-item" (click)="handleRegister()">
               <i class="fas fa-user-plus"></i>
               <span>Registrarse</span>
+            </button>
+            <button class="dropdown-item" (click)="handleRegister()">
+              <i class="fas fa-user-cog"></i>
+              <span>Editar Perfil</span>
             </button>
           </div>
         </div>

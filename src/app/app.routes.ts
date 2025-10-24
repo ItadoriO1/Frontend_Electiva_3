@@ -5,6 +5,8 @@ import { LoginComponent } from './components/login/login-component/login-compone
 import { RegisterComponent } from './components/register/register-component/register-component';
 import { ReservasComponent } from './components/reservas/reservas-component/reservas-component';
 import { VuelosComponent } from './components/vuelos/vuelos-component/vuelos-component';
+import { EmpleadosComponent } from './components/empleados/empleados-component/empleados-component';
+import { EditComponent } from './components/edit/edit-component/edit-component';
 
 export const routes: Routes = [
     {path: 'agent', component: ListAgent},
@@ -12,5 +14,7 @@ export const routes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'reservas', component: ReservasComponent},
-    {path: 'vuelos', component: VuelosComponent}
+    {path: 'vuelos', component: VuelosComponent},
+    {path: 'empleados', component: EmpleadosComponent},
+    {path: 'edit', component: EditComponent}
 ];
