@@ -5,6 +5,6 @@ export interface Persona{
     apellido:string,
     telefono:string,
     email:string,
-    rol:string,
+    rol?:string,
     contrasenia:string
 }

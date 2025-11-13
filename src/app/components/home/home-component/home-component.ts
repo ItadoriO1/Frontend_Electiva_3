@@ -42,6 +42,10 @@ export class HomeComponent {
     window.location.href = '/register'
   }
 
+  handleProfileEdit(): void {
+    window.location.href = '/edit'
+  }
+
   ngOnInit(): void {
     this.authService.getUsuarioActual().subscribe({
       next: response => {
@@ -59,5 +63,6 @@ export class HomeComponent {
         this.cdr.detectChanges();
       }
     });
+    this.cdr.detectChanges();
   }
 }

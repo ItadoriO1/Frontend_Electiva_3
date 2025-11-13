@@ -12,6 +12,6 @@ export class AuthService {
 
   // Obtener el usuario actual directamente desde la cookie JWT
   getUsuarioActual(): Observable<Persona> {
-    return this.http.get<Persona>('http://localhost:8081/Servicio1/api/personas/me', { withCredentials: true });
+    return this.http.get<Persona>('http://localhost:8080/ServiceUsuario/api/personas/me', { withCredentials: true });
   }
 }

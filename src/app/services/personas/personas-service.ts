@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PersonasService {
-  private readonly baseUrl = 'http://localhost:8081/Servicio1/api/personas'
+  private readonly baseUrl = 'http://localhost:8080/ServiceUsuario/api/personas'
 
   constructor(private http: HttpClient){}
 
@@ -17,5 +17,20 @@ export class PersonasService {
       withCredentials: true
     })
   }
+
+  updatePersona(propr: Persona): Observable<Persona>{
+    return this.http.put<Persona>(`${this.baseUrl}/update/${propr.id}`, propr, {
+      withCredentials: true
+    })
+  }
   
+  getPersonaByEmail(email: string): Observable<Persona> {
+    return this.http.get<Persona>(`${this.baseUrl}/email/${email}`, {
+      withCredentials: true
+    })
+  }
+
+  updatePassword(prop: Persona, password: string):Observable<Persona>{
+    return this.http.patch<Persona>(`${this.baseUrl}/updatePassword/${prop.id}`, {password})
+  }
 }

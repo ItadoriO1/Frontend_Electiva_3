@@ -21,13 +21,13 @@
         <li class="menu-item">
           <a href="/vuelos">
             <i class="fa-solid fa-plane-up"></i>
-            <span>Mis vuelos</span>
+            <span>Vuelos Disponibles</span>
           </a>
         </li>
         <li class="menu-item">
           <a href="/reservas">
             <i class="fa-solid fa-ticket"></i>
-            <span>Mis reservaciones</span>
+            <span>Mis Reservaciones</span>
           </a>
         </li>
         <li class="menu-item" *ngIf="isAdmin">
@@ -36,10 +36,16 @@
             <span>Empleados</span>
           </a>
         </li>
+        <li class="menu-item" *ngIf="isAdmin">
+          <a href="/mantenimientos">
+            <i class="fas fa-tools"></i>
+            <span>Mantenimiento</span>
+          </a>
+        </li>
       </ul>
     </nav>
 
-    <!-- Improved user menu with dropdown functionality -->
+    <!-- Menú de usuario -->
     <div class="sidebar-footer">
       <div class="user-menu">
         <div class="user-info" (click)="toggleUserMenu()">
@@ -57,7 +63,7 @@
             <i class="fas fa-user-plus"></i>
             <span>Registrarse</span>
           </button>
-          <button class="dropdown-item" (click)="handleRegister()">
+          <button *ngIf="isUserRegistered" class="dropdown-item" (click)="handleEdit()">
             <i class="fas fa-user-cog"></i>
             <span>Editar Perfil</span>
           </button>
@@ -67,6 +73,7 @@
   </aside>
 
   <main class="main-content">
+    <!-- Sección del agente -->
     <div class="chat-section">
       <div class="main-container">
         <header class="chat-header">
@@ -125,8 +132,10 @@
       </div>
     </div>
 
+    <!-- Panel derecho de tablas dinámicas -->
     <aside class="tables-panel">
       <div class="tables-content">
+        <!-- Estado vacío -->
         <div *ngIf="dynamicTables.length === 0" class="empty-state">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -137,7 +146,8 @@
           <span>Las tablas se crearán dinámicamente</span>
         </div>
 
-        <div *ngFor="let table of dynamicTables; let i = index" class="table-card">
+        <!-- Tablas dinámicas editables -->
+        <div *ngFor="let table of dynamicTables; let i = index" class="table-card table-container">
           <div class="table-card-header">
             <h3 class="table-card-title">{{ table.title }}</h3>
             <button class="remove-table-button" (click)="removeTable(i)">
@@ -152,18 +162,23 @@
             <table class="dynamic-table">
               <thead>
                 <tr>
-                  <th *ngFor="let column of table.columns">{{ column }}</th>
+                  <th *ngFor="let col of table.columns">{{ col }}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of table.rows">
-                  <td *ngFor="let column of table.columns">{{ row[column] }}</td>
+                <tr *ngFor="let row of table.rows; let r = index">
+                  <td *ngFor="let col of table.columns">
+                    <input type="text" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}"
+                      class="form-control" />
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="table-footer">
+          <div class="table-footer actions">
+            <button class="action-btn danger" (click)="removeTable(i)">Eliminar</button>
+            <button class="action-btn success" (click)="confirmTable(i)">Confirmar</button>
             <span class="table-info">{{ table.rows.length }} filas</span>
             <span class="table-timestamp">{{ table.timestamp }}</span>
           </div>
