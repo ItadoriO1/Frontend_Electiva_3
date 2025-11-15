@@ -97,7 +97,7 @@ export class ReservasComponent {
       // IMPORTANTE: Filtrar por nombre de usuario.
       // Sería mejor si el backend filtrara por ID de usuario.
       this.reservasFiltradas = this.reservas.filter(
-        r => r.usuario === this.usuario?.nombre
+        r => r.usuario === this.usuario?.email
       );
 
       this.actualizarEstadisticas();
@@ -193,16 +193,6 @@ export class ReservasComponent {
     this.mostrarModalEditarReserva = false;
   }
 
-  /** CRUD reservas */
-  guardarReserva(nuevaReserva: Reserva): void {
-    // Asignar el nombre de usuario actual a la reserva
-    nuevaReserva.usuario = this.usuario?.nombre || 'Desconocido';
-    
-    this.reservaService.crearReserva(nuevaReserva)
-      .subscribe(() => this.cargarReservas());
-    this.cerrarModalReserva();
-  }
-
   actualizarReserva(reservaEditada: Reserva): void {
     this.reservaService.editarReserva(reservaEditada)
       .subscribe(() => this.cargarReservas());
@@ -210,9 +200,6 @@ export class ReservasComponent {
   }
 
   eliminarReserva(reserva: Reserva): void {
-    // --- ADVERTENCIA ---
-    // 'confirm' bloquea el navegador y es mala práctica.
-    // Deberías reemplazar esto con un modal de confirmación personalizado.
     if (confirm('¿Deseas eliminar esta reserva?')) {
       this.reservaService.eliminarReserva(reserva.id!)
         .subscribe(() => this.cargarReservas());

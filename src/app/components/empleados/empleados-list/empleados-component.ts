@@ -191,6 +191,4 @@ export class EmpleadosComponent implements OnInit {
     }
     this.cdr.detectChanges();
   }
-
-
 }

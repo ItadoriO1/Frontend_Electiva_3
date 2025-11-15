@@ -5,23 +5,15 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
-  background-color: #0f172a;
-  color: #e2e8f0;
-  line-height: 1.6;
-  height: 100vh;
-  overflow: hidden;
-}
-
 /* Dashboard Container */
 .dashboard-container {
   display: flex;
   height: 100vh;
+  background-color: #0f172a;
   overflow: hidden;
 }
 
-/* Sidebar */
+/* Sidebar Styles */
 .sidebar {
   width: 260px;
   background-color: #1e293b;
@@ -38,9 +30,8 @@ body {
 
 .sidebar-title {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #f8fafc;
-  letter-spacing: -0.025em;
 }
 
 .sidebar-nav {
@@ -61,12 +52,11 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  color: #94a3b8;
+  color: #cbd5e1;
   text-decoration: none;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
   font-size: 0.9375rem;
-  font-weight: 500;
 }
 
 .menu-item a:hover {
@@ -80,24 +70,23 @@ body {
 }
 
 .menu-item i {
-  width: 20px;
   font-size: 1.125rem;
+  width: 1.25rem;
+  text-align: center;
 }
 
-/* Estilos mejorados para el menú desplegable de usuario */
-
-/* Contenedor del menú de usuario */
+/* Sidebar Footer */
 .sidebar-footer {
-  position: relative;
   padding: 1rem 1.25rem;
+  /* Updated padding to match reference */
   border-top: 1px solid #334155;
+  position: relative;
 }
 
 .user-menu {
   position: relative;
 }
 
-/* Información del usuario (botón principal) */
 .user-info {
   display: flex;
   align-items: center;
@@ -124,7 +113,6 @@ body {
   color: #3b82f6;
 }
 
-/* Flecha indicadora del dropdown */
 .dropdown-arrow {
   margin-left: auto;
   font-size: 0.75rem;
@@ -136,7 +124,6 @@ body {
   transform: rotate(180deg);
 }
 
-/* Menú desplegable */
 .user-dropdown {
   position: absolute;
   bottom: calc(100% + 0.5rem);
@@ -160,7 +147,6 @@ body {
   transform: translateY(0);
 }
 
-/* Botones individuales (Login y Register) */
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -183,7 +169,6 @@ body {
   border-bottom: none;
 }
 
-/* Indicador visual al lado izquierdo */
 .dropdown-item::before {
   content: "";
   position: absolute;
@@ -206,7 +191,6 @@ body {
   transform: scaleY(1);
 }
 
-/* Iconos de los botones */
 .dropdown-item i {
   font-size: 1.125rem;
   width: 20px;
@@ -219,374 +203,432 @@ body {
   transform: scale(1.1);
 }
 
-/* Scrollbar */
+/* Scrollbar Styles */
 .sidebar::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .sidebar::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #1e293b;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: #475569;
+  border-radius: 3px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #64748b;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    left: -260px;
-    z-index: 1000;
-    transition: left 0.3s ease;
-  }
-
-  .sidebar.open {
-    left: 0;
-  }
-}
-
-/* ============================================
---- NUEVOS ESTILOS PARA MAIN CONTENT ---
-============================================
-*/
-
+/* Main Content */
 .main-content {
-flex: 1;
-overflow-y: auto;
-padding: 2rem;
-background-color: #0f172a;
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
 }
 
-/* Scrollbar para Main Content */
-.main-content::-webkit-scrollbar {
-width: 8px;
-}
-.main-content::-webkit-scrollbar-track {
-background: #0f172a;
-}
-.main-content::-webkit-scrollbar-thumb {
-background: #334155;
-border-radius: 4px;
-}
-.main-content::-webkit-scrollbar-thumb:hover {
-background: #475569;
-}
-
-/* Cabecera de Página */
 .content-header {
-margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .page-title {
-font-size: 2rem;
-font-weight: 700;
-color: #f8fafc;
-letter-spacing: -0.025em;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
 }
 
 .page-subtitle {
-font-size: 1rem;
-color: #94a3b8;
-margin-top: 0.25rem;
+  font-size: 1rem;
+  color: #94a3b8;
 }
 
-/* Tarjetas de Estadísticas */
+/* Statistics Grid */
 .stats-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-gap: 1.5rem;
-margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .stat-card {
-background-color: #1e293b;
-border: 1px solid #334155;
-border-radius: 0.75rem;
-padding: 1.5rem;
-display: flex;
-align-items: center;
-gap: 1.5rem;
-transition: all 0.2s ease;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.3s ease;
 }
 
 .stat-card:hover {
-transform: translateY(-4px);
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-color: #475569;
 }
 
 .stat-icon {
-font-size: 2rem;
-padding: 1rem;
-border-radius: 0.5rem;
-display: flex;
-align-items: center;
-justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
 .stat-icon.blue {
-color: #3b82f6;
-background-color: rgba(59, 130, 246, 0.1);
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
 }
+
 .stat-icon.green {
-color: #22c55e;
-background-color: rgba(34, 197, 94, 0.1);
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
+
+.stat-icon.purple {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+}
+
+.stat-icon.yellow {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
 .stat-icon.red {
-color: #ef4444;
-background-color: rgba(239, 68, 68, 0.1);
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
-.stat-content .stat-label {
-font-size: 0.875rem;
-color: #94a3b8;
-margin-bottom: 0.25rem;
-}
-.stat-content .stat-value {
-font-size: 1.75rem;
-font-weight: 700;
-color: #f8fafc;
+/* AQUI SE REALIZA LA CORRECCIÓN */
+.stat-content {
+  flex: 1;
 }
 
-/* Gráficos */
+.stat-label {
+  font-size: 0.875rem;
+  color: #f8fafc;
+  /* Cambiado de #94a3b8 a #f8fafc (blanco) */
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #f8fafc;
+  /* Cambiado de #f8fafc (ya estaba bien) */
+}
+
+/* FIN DE LA CORRECCIÓN */
+
+/* Charts Grid */
 .charts-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-gap: 1.5rem;
-margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .chart-card {
-background-color: #1e293b;
-border: 1px solid #334155;
-border-radius: 0.75rem;
-padding: 1.5rem;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
 
 .chart-header {
-margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .chart-title {
-font-size: 1.25rem;
-font-weight: 600;
-color: #f8fafc;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
 }
 
-/* Gráfico de Pie */
+/* Pie Chart */
 .pie-chart {
-display: flex;
-align-items: center;
-gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .pie-svg {
-max-width: 180px;
-width: 100%;
-transform: rotate(-90deg); /* Ajuste para que el 0% empiece arriba */
+  width: 200px;
+  height: 200px;
 }
 
 .pie-legend {
-display: flex;
-flex-direction: column;
-gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
 }
 
 .legend-item {
-display: flex;
-align-items: center;
-gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .legend-color {
-width: 12px;
-height: 12px;
-border-radius: 50%;
-flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.legend-color.blue {
+  background-color: #3b82f6;
+}
+
+.legend-color.green {
+  background-color: #10b981;
+}
+
+.legend-color.purple {
+  background-color: #8b5cf6;
 }
 
 .legend-label {
-font-size: 0.875rem;
-color: #cbd5e1;
+  font-size: 0.875rem;
+  color: #cbd5e1;
 }
 
-/* Gráfico de Barras */
+/* Bar Chart */
 .bar-chart {
-display: flex;
-flex-direction: column;
-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .bar-label {
-font-size: 0.875rem;
-color: #94a3b8;
-margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  font-weight: 500;
 }
 
 .bar-container {
-background-color: #334155;
-border-radius: 0.25rem;
-display: flex;
-align-items: center;
-position: relative;
-height: 24px;
+  position: relative;
+  height: 2rem;
+  background-color: #0f172a;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .bar-fill {
-height: 100%;
-border-radius: 0.25rem;
-transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 0.5rem;
+  transition: width 0.5s ease;
 }
 
 .bar-value {
-position: absolute;
-left: 0.5rem;
-font-size: 0.875rem;
-font-weight: 500;
-color: #f8fafc;
-text-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Sombra para legibilidad */
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f8fafc;
 }
 
-/* Tarjeta de Tabla */
+/* Table Card */
 .table-card {
-background-color: #1e293b;
-border: 1px solid #334155;
-border-radius: 0.75rem;
-overflow: hidden; /* Para que la tabla respete el borde redondeado */
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
 
 .table-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 1.5rem;
-border-bottom: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .table-title {
-font-size: 1.25rem;
-font-weight: 600;
-color: #f8fafc;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
 }
 
-/* Botón Primario (Agregar Reserva) */
 .btn-primary {
-background-color: #3b82f6;
-color: white;
-border: none;
-padding: 0.625rem 1rem;
-border-radius: 0.5rem;
-font-weight: 500;
-cursor: pointer;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary i {
-font-size: 0.875rem;
+  font-size: 1rem;
 }
 
-/* Contenedor de Tabla (para scroll horizontal en responsive) */
+/* Table Container */
 .table-container {
-width: 100%;
-overflow-x: auto;
+  overflow-x: auto;
 }
 
-/* Tabla de Datos */
 .data-table {
-width: 100%;
-border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.data-table th,
-.data-table td {
-padding: 1rem 1.5rem;
-text-align: left;
-border-bottom: 1px solid #334155;
-white-space: nowrap; /* Evita que el texto se parta */
+.data-table thead {
+  background-color: #0f172a;
 }
 
-.data-table thead th {
-background-color: rgba(51, 65, 85, 0.5); /* #334155 con opacidad */
-color: #f8fafc;
-font-size: 0.875rem;
-text-transform: uppercase;
-letter-spacing: 0.05em;
+.data-table th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: #f8fafc;
+  border-bottom: 1px solid #334155;
 }
 
 .data-table tbody tr {
-transition: background-color 0.2s ease;
-}
-
-.data-table tbody tr:last-child td {
-border-bottom: none;
+  border-bottom: 1px solid #334155;
+  transition: background-color 0.2s ease;
 }
 
 .data-table tbody tr:hover {
-background-color: #293548;
+  background-color: #334155;
 }
 
-.data-table tbody td {
-color: #cbd5e1;
-font-size: 0.9375rem;
+.data-table td {
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #cbd5e1;
 }
 
-/* Badges de Estado */
+/* Badge Styles */
 .badge {
-padding: 0.25rem 0.625rem;
-border-radius: 1rem;
-font-size: 0.75rem;
-font-weight: 600;
-display: inline-block;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-blue {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
 }
 
 .badge-green {
-background-color: rgba(34, 197, 94, 0.1);
-color: #22c55e;
-}
-.badge-yellow {
-background-color: rgba(234, 179, 8, 0.1);
-color: #eab308;
-}
-.badge-red {
-background-color: rgba(239, 68, 68, 0.1);
-color: #ef4444;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
 
-/* Botones de Acción (Editar/Eliminar) */
+.badge-yellow {
+  /* Nuevo estilo para 'mantenimiento' */
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.badge-red {
+  /* Nuevo estilo para 'fuera_de_servicio' */
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.badge-purple {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+}
+
+/* Action Buttons */
 .action-buttons {
-display: flex;
-gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .btn-action {
-background: none;
-border: none;
-color: #94a3b8;
-font-size: 1.125rem;
-cursor: pointer;
-padding: 0.25rem;
-transition: color 0.2s ease;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
 }
 
-.btn-action.btn-edit:hover {
-color: #3b82f6;
+.btn-edit {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
 }
 
-.btn-action.btn-delete:hover {
+.btn-edit:hover {
+  background-color: #3b82f6;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.stat-icon.red {
+  background-color: rgba(239, 68, 68, 0.1);
   color: #ef4444;
+  /* Aseguramos que el color del icono sea rojo */
+}
+
+.btn-delete:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    overflow-x: scroll;
+  }
 }

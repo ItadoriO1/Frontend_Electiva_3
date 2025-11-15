@@ -205,7 +205,6 @@ export class ResponseFormatService {
 
   private formatVuelo(vuelo: Vuelo): string {
     return `✈️ Vuelo ${vuelo.codigoVuelo}\n` +
-           `   🏢 Aerolínea: ${vuelo.aerolinea}\n` +
            `   🛫 Origen: ${vuelo.origen}\n` +
            `   🛬 Destino: ${vuelo.destino}\n` +
            `   📅 Fecha: ${vuelo.fecha}\n` +

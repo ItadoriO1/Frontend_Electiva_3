@@ -41,6 +41,12 @@
             <span>Mantenimiento</span>
           </a>
         </li>
+        <li class="menu-item" *ngIf="isAdmin">
+          <a href="/aviones">
+            <i class="fa-solid fa-plane-arrival"></i>
+            <span>Registro de Aviones</span>
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -126,25 +132,6 @@
 
     <!-- Charts Section (Ajustada para enfoque general) -->
     <div class="charts-grid">
-      <!-- Bar Chart: Vuelos por Aerolínea -->
-      <div class="chart-card">
-        <div class="chart-header">
-          <h3 class="chart-title">Vuelos por Aerolínea</h3>
-        </div>
-        <div class="chart-content">
-          <!-- Se asume que 'aerolineas' es una nueva propiedad para el gráfico -->
-          <div class="bar-chart">
-            <div class="bar-item" *ngFor="let aero of aerolineas">
-              <div class="bar-label">{{aero.name}}</div>
-              <div class="bar-container">
-                <div class="bar-fill" [style.width.%]="aero.percentage"></div>
-                <span class="bar-value">{{aero.count}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Bar Chart: Vuelos por Destino (Mantenido) -->
       <div class="chart-card">
         <div class="chart-header">
@@ -181,7 +168,6 @@
           <thead>
             <tr>
               <th>Código</th>
-              <th>Aerolínea</th>
               <th>Origen</th>
               <th>Destino</th>
               <th>Fecha/Hora</th>
@@ -193,16 +179,23 @@
           <tbody>
             <tr *ngFor="let vuelo of vuelosDisponibles">
               <td>{{ vuelo.codigoVuelo }}</td>
-              <td>{{ vuelo.aerolinea }}</td>
               <td>{{ vuelo.origen }}</td>
               <td>{{ vuelo.destino }}</td>
               <td>{{ vuelo.fecha | date: 'shortDate' }} {{ vuelo.hora | date: 'shortTime' }}</td>
               <td>{{ vuelo.duracionMinutos }} min</td>
               <td>{{ vuelo.precioBase | currency: 'USD' }}</td>
               <td>
-                <button class="btn-reserve" (click)="iniciarReserva(vuelo)">
-                  <i class="fas fa-ticket-alt"></i> Reservar
-                </button>
+                <div class="action-buttons">
+                  <button class="btn-reserve" (click)="iniciarReserva(vuelo)">
+                    <i class="fas fa-ticket-alt"></i> Reservar
+                  </button>
+                  <button *ngIf="isAdmin" class="btn-edit" (click)="editarVuelo(vuelo)">
+                    <i class="fas fa-edit"></i> Editar
+                  </button>
+                  <button *ngIf="isAdmin" class="btn-delete" (click)="eliminarVuelo(vuelo)">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+                </div>
               </td>
             </tr>
             <tr *ngIf="vuelosDisponibles?.length === 0">

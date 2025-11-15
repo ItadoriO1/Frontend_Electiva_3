@@ -42,6 +42,12 @@
             <span>Mantenimiento</span>
           </a>
         </li>
+        <li class="menu-item" *ngIf="isAdmin">
+          <a href="/aviones">
+            <i class="fa-solid fa-plane-arrival"></i>
+            <span>Registro de Aviones</span>
+          </a>
+        </li>
       </ul>
     </nav>
 

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms'
 import { ReservasSave } from '../../reservas/reservas-save/reservas-save/reservas-save'
 import { Reserva } from '../../../models/reserva'
 import { VueloService } from '../../../services/vuelos/vuelo-service'
+import { ReservaService } from '../../../services/reservas/reserva-service'
 
 
 // Interfaz para los datos del gráfico de destinos/aerolíneas
@@ -45,16 +46,14 @@ export class VuelosComponent implements OnInit {
   // Datos para gráfico de destinos
   destinations: ChartData[] = []
 
-  // Datos para gráfico de aerolíneas
-  aerolineas: ChartData[] = []
-
   mostrarModalSaveReserva = false;
   reservaSeleccionada: Reserva | null = null;
   vueloSeleccionadoParaReserva: Vuelo | null = null;
 
   constructor(private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private vueloService: VueloService
+    private vueloService: VueloService,
+    private reservaService: ReservaService
   ) { }
 
   ngOnInit(): void {
@@ -113,7 +112,6 @@ export class VuelosComponent implements OnInit {
     this.destinosUnicos = 0;
     this.vuelosProximos = 0;
     this.destinations = [];
-    this.aerolineas = [];
   }
 
   // 🔹 Método refactorizado para cargar datos del dashboard de forma dinámica
@@ -159,7 +157,6 @@ export class VuelosComponent implements OnInit {
 
       // --- 2. Generación de Datos para Gráficos ---
       this.destinations = this.calculateChartData('destino');
-      this.aerolineas = this.calculateChartData('aerolinea');
 
       // Notifica a Angular para que actualice la vista
       this.cdr.detectChanges();
@@ -174,11 +171,12 @@ export class VuelosComponent implements OnInit {
       id: null, // Se genera automáticamente
       usuario: this.usuario?.email || 'Invitado', // O el ID real del usuario
       vuelo: vuelo.codigoVuelo, // Usamos el código de vuelo
-      estado: 'Pendiente', // Estado inicial
-      Numasiento: '', // Se llenará en el modal
+      estado: 'PENDIENTE', // Estado inicial
+      numasiento: '', // Se llenará en el modal
     };
     // 2. Asignar la reserva inicial a la variable que el modal espera
     this.reservaSeleccionada = nuevaReserva;
+    this.reservaSeleccionada.usuario = this.usuario?.email ?? "";
     // 3. Abrir el modal
     this.mostrarModalSaveReserva = true;
   }
@@ -211,7 +209,19 @@ export class VuelosComponent implements OnInit {
   }
 
   GuardarReserva(reserva:Reserva): void{
+    this.reservaService.crearReserva(reserva).subscribe({
+      next: () => {
+        alert('Reserva guardada con exito')
+        this.cerrarModalSaveReserva()
+        this.loadVuelosData()
+      },
+      error: () => alert('Error al guardar la reserva')
+    })
   }
+
+  editarVuelo(vuelo:Vuelo){}
+
+  eliminarVuelo(vuelo:Vuelo){}
 
   agregarVuelo(){}
 }

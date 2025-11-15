@@ -18,15 +18,16 @@ export class ReservaService {
   }
 
   crearReserva(reserva: Reserva): Observable<Reserva> {
-    return this.http.post<Reserva>(`${this.baseUrl}/reservas`, reserva);
+    console.log(reserva);
+    return this.http.post<Reserva>(`${this.baseUrl}`, reserva, {withCredentials: true});
   }
 
 
   editarReserva(reserva: Reserva): Observable<Reserva> {
-    return this.http.put<Reserva>(`${this.baseUrl}/reservas/${reserva.id}`, reserva);
+    return this.http.put<Reserva>(`${this.baseUrl}/reservas/${reserva.id}`, reserva, {withCredentials: true});
   }
 
   eliminarReserva(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/reservas/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/reservas/${id}`,  {withCredentials: true});
   }
 }

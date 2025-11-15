@@ -3,5 +3,5 @@ export interface Reserva {
     usuario:string,
     vuelo:string,
     estado:string,
-    Numasiento:string
+    numasiento:string
 }

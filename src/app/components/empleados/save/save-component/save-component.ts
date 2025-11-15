@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Empleado } from '../../../../models/empleado';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EmpleadosService } from '../../../../services/empleados/empleados-service';
 
 @Component({
   selector: 'app-save-component',

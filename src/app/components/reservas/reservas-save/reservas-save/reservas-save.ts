@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class ReservasSave {
   @Input() isOpen = false
   // 🔹 NUEVO INPUT: Recibe la reserva pre-inicializada desde el componente padre
-  @Input() reservaToEdit: Reserva | null = null; 
+  @Input() reservaToEdit: Reserva | null = null;
   
   @Output() onClose = new EventEmitter<void>()
   @Output() onSave = new EventEmitter<Reserva>()
@@ -25,7 +25,7 @@ export class ReservasSave {
     usuario: "",
     vuelo: "",
     estado: "",
-    Numasiento: ""
+    numasiento: ""
   }
 
   ngOnInit(): void {
@@ -34,6 +34,7 @@ export class ReservasSave {
       // Clonamos el objeto para evitar modificar el objeto original del padre
       this.reserva = { ...this.reservaToEdit };
     }
+    console.log(this.reserva);
   }
 
   closeModal(): void {

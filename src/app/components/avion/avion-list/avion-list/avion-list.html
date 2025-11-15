@@ -29,7 +29,7 @@
                         <span>Mis Reservaciones</span>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="/empleados">
                         <i class="fas fa-users"></i>
                         <span>Empleados</span>
@@ -41,7 +41,7 @@
                         <span>Mantenimiento</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="/aviones">
                         <i class="fa-solid fa-plane-arrival"></i>
                         <span>Registro de Aviones</span>
@@ -79,65 +79,65 @@
     <!-- Main Content Area -->
     <main class="main-content">
         <div class="content-header">
-            <h1 class="page-title">Gestión de Empleados</h1>
-            <p class="page-subtitle">Administra y visualiza la información de los empleados</p>
+            <h1 class="page-title">Gestión de Aviones</h1>
+            <p class="page-subtitle">Administra y visualiza la flota de aviones de la aerolínea</p>
         </div>
 
         <!-- Statistics Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon blue">
-                    <i class="fas fa-users"></i>
+                    <i class="fa-solid fa-plane"></i>
                 </div>
                 <div class="stat-content">
-                    <p class="stat-label">Total Empleados</p>
-                    <h3 class="stat-value">{{totalEmpleados}}</h3>
+                    <p class="stat-label">Total Aviones</p>
+                    <h3 class="stat-value">{{totalAviones}}</h3>
                 </div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-icon green">
-                    <i class="fas fa-user-check"></i>
+                    <i class="fa-solid fa-circle-check"></i>
                 </div>
                 <div class="stat-content">
-                    <p class="stat-label">Activos</p>
-                    <h3 class="stat-value">{{empleadosActivos}}</h3>
+                    <p class="stat-label">Disponibles</p>
+                    <h3 class="stat-value">{{avionesDisponibles}}</h3>
                 </div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-icon yellow">
-                    <i class="fas fa-dollar-sign"></i>
+                    <i class="fa-solid fa-wrench"></i>
                 </div>
                 <div class="stat-content">
-                    <p class="stat-label">Salario Promedio</p>
-                    <h3 class="stat-value">${{salarioPromedio | number:'1.0-0'}}</h3>
+                    <p class="stat-label">En Mantenimiento</p>
+                    <h3 class="stat-value">{{avionesMantenimiento}}</h3>
                 </div>
             </div>
         </div>
 
-        <!-- Charts Section -->
+        <!-- Charts Section (Se mantiene la estructura de gráficos, asumiendo que se adaptarán los datos) -->
         <div class="charts-grid">
             <!-- Pie Chart -->
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">Empleados por Cargo</h3>
+                    <h3 class="chart-title">Aviones por Aerolínea</h3>
                 </div>
                 <div class="chart-content">
                     <div class="pie-chart">
                         <svg viewBox="0 0 200 200" class="pie-svg">
-                            <circle *ngFor="let cargo of cargos; let i = index" cx="100" cy="100" r="80" fill="none"
-                                [attr.stroke]="cargo.color" stroke-width="40"
-                                [attr.stroke-dasharray]="cargo.percentage * 5.03 + ' 503'"
+                            <circle *ngFor="let aerolinea of aerolineas; let i = index" cx="100" cy="100" r="80"
+                                fill="none" [attr.stroke]="aerolinea.color" stroke-width="40"
+                                [attr.stroke-dasharray]="aerolinea.percentage * 5.03 + ' 503'"
                                 [attr.stroke-dashoffset]="-getCumulativePercentage(i) * 5.03"
                                 transform="rotate(-90 100 100)">
                             </circle>
                         </svg>
 
                         <div class="pie-legend">
-                            <div class="legend-item" *ngFor="let cargo of cargos">
-                                <span class="legend-color" [style.background-color]="cargo.color"></span>
-                                <span class="legend-label">{{cargo.name}} ({{cargo.percentage |
+                            <div class="legend-item" *ngFor="let aerolinea of aerolineas">
+                                <span class="legend-color" [style.background-color]="aerolinea.color"></span>
+                                <span class="legend-label">{{aerolinea.name}} ({{aerolinea.percentage |
                                     number:'1.0-0'}}%)</span>
                             </div>
                         </div>
@@ -148,16 +148,16 @@
             <!-- Bar Chart -->
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">Empleados por Cargo</h3>
+                    <h3 class="chart-title">Capacidad Promedio por Modelo</h3>
                 </div>
                 <div class="chart-content">
                     <div class="bar-chart">
-                        <div class="bar-item" *ngFor="let cargo of cargos">
-                            <div class="bar-label">{{cargo.name}}</div>
+                        <div class="bar-item" *ngFor="let modelo of modelos">
+                            <div class="bar-label">{{modelo.name}}</div>
                             <div class="bar-container">
-                                <div class="bar-fill" [style.width.%]="cargo.percentage"
-                                    [style.background-color]="cargo.color"></div>
-                                <span class="bar-value">{{cargo.count}}</span>
+                                <div class="bar-fill" [style.width.%]="modelo.percentage"
+                                    [style.background-color]="modelo.color"></div>
+                                <span class="bar-value">{{modelo.count}}</span>
                             </div>
                         </div>
                     </div>
@@ -165,55 +165,50 @@
             </div>
         </div>
 
-        <!-- Employees Table -->
+        <!-- Aviones Table -->
         <div class="table-card">
             <div class="table-header">
-                <h3 class="table-title">Lista de Empleados</h3>
+                <h3 class="table-title">Lista de Aviones</h3>
                 <button class="btn-primary" (click)="openModal()">
                     <i class="fas fa-plus"></i>
-                    Agregar Empleado
+                    Registrar Avión
                 </button>
             </div>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Cédula</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Cargo</th>
-                            <th>Rol</th>
-                            <th>Salario</th>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Capacidad</th>
+                            <th>Aerolínea</th>
+                            <th>Estado</th>
+                            <th>Fecha Fabricación</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let empleado of empleados">
-                            <td>{{empleado.cedula}}</td>
-                            <td>{{empleado.nombre}}</td>
-                            <td>{{empleado.apellido}}</td>
-                            <td>{{empleado.telefono}}</td>
-                            <td>{{empleado.email}}</td>
-                            <td>{{empleado.cargo}}</td>
+                        <tr *ngFor="let avion of aviones">
+                            <td>{{avion.id}}</td>
+                            <td>{{avion.modelo}}</td>
+                            <td>{{avion.capacidad}}</td>
+                            <td>{{avion.aerolinea}}</td>
                             <td>
                                 <span class="badge" [ngClass]="{
-                    'badge-blue': empleado.rol === 'Administrador',
-                    'badge-green': empleado.rol === 'Empleado',
-                    'badge-purple': empleado.rol === 'Supervisor'
-                }">
-                                    {{empleado.rol}}
+                                    'badge-green': avion.estado === 'disponible',
+                                    'badge-yellow': avion.estado === 'mantenimiento',
+                                    'badge-red': avion.estado === 'fuera_de_servicio'
+                                }">
+                                    {{avion.estado | titlecase}}
                                 </span>
                             </td>
-                            <td>${{empleado.salario | number:'1.0-0'}}</td>
+                            <td>{{avion.fecha_fabricacion | date:'dd/MM/yyyy'}}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-action btn-edit" (click)="editarEmpleado(empleado)"
-                                        title="Editar">
+                                    <button class="btn-action btn-edit" (click)="editarAvion(avion)" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn-action btn-delete" (click)="eliminarEmpleado(empleado)"
+                                    <button class="btn-action btn-delete" (click)="eliminarAvion(avion)"
                                         title="Eliminar">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -225,9 +220,11 @@
             </div>
         </div>
     </main>
-    <app-save-component [isOpen]="mostrarModal" (onClose)="cerrarModal()" (onSave)="guardarEmpleado($event)">
-    </app-save-component>
+    <!-- Componentes modales (asumiendo que se adaptarán en el código TypeScript/Angular) -->
+    <app-avion-save [isOpen]="mostrarModal" (onClose)="cerrarModal()" (onSave)="guardarAvion($event)">
+    </app-avion-save>
 
-    <app-edit-component *ngIf="mostrarModalEditar && empleadoSeleccionado" [isOpen]="mostrarModalEditar"
-        [empleadoToEdit]="empleadoSeleccionado" (onClose)="cerrarModalEditar()" (onSave)="actualizarEmpleado($event)">
-    </app-edit-component>
+    <app-avion-edit *ngIf="mostrarModalEditar && avionSeleccionado" [isOpen]="mostrarModalEditar"
+        [avionToEdit]="avionSeleccionado" (onClose)="cerrarModalEditar()" (onSave)="actualizarAvion($event)">
+    </app-avion-edit>
+</div>

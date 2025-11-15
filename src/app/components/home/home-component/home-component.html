@@ -36,6 +36,18 @@
                         <span>Empleados</span>
                     </a>
                 </li>
+                <li class="menu-item" *ngIf="isAdmin">
+                    <a href="/mantenimientos">
+                        <i class="fas fa-tools"></i>
+                        <span>Mantenimiento</span>
+                    </a>
+                </li>
+                <li class="menu-item" *ngIf="isAdmin">
+                    <a href="/aviones">
+                        <i class="fa-solid fa-plane-arrival"></i>
+                        <span>Registro de Aviones</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div class="sidebar-footer">

@@ -1,8 +1,10 @@
+import { EstadoAvion } from "./enums/estadoAvion";
+
 export interface Avion {
-    id: number;
+    id: number|null;
     modelo: string;
     capacidad: number;
     aerolinea: string;
-    estado: string;
+    estado: EstadoAvion;
     fecha_fabricacion: string;
 }

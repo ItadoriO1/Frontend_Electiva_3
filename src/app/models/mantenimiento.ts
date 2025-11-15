@@ -1,3 +1,5 @@
+import { EstadoMantenimiento } from "./enums/estadoMantenimiento";
+
 export interface Mantenimiento{
     id:number|null,
     avion_id:string,
@@ -6,5 +8,5 @@ export interface Mantenimiento{
     fecha:Date,
     responsable:string,
     costo:number,
-    estado:string
+    estado:EstadoMantenimiento
 }
