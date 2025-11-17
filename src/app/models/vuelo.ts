@@ -5,8 +5,8 @@ export interface Vuelo{
     destino:string
     avionId:string
     pilotoId:string
-    fecha:Date
-    hora:Date
+    fecha: Date | string;
+    hora: Date | string;
     duracionMinutos:number
     estado:string
     precioBase:number

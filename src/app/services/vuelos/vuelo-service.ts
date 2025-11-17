@@ -15,4 +15,16 @@ export class VueloService {
   getAllVuelos():Observable<Vuelo[]>{
     return this.http.get<Vuelo[]>(`${this.baseUrl}`, { withCredentials: true })
   }
+
+  saveVuelo(prop:Vuelo):Observable<Vuelo>{
+    return this.http.post<Vuelo>(`${this.baseUrl}`, prop, { withCredentials: true })
+  }
+
+  updateVuelo(prop:Vuelo):Observable<Vuelo>{
+    return this.http.put<Vuelo>(`${this.baseUrl}/${prop.id}`, prop, { withCredentials: true })
+  }
+
+  deleteVuelo(id:number):Observable<void>{
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { withCredentials: true })
+  }
 }

@@ -154,7 +154,7 @@
     <!-- Tabla de Vuelos Disponibles (Nueva Sección) -->
     <div class="table-card">
       <div class="table-actions" *ngIf="isAdmin || isEmpleado">
-        <button class="btn-primary" (click)="agregarVuelo()">
+        <button class="btn-primary" (click)="openModalSaveAvion()">
           <i class="fas fa-plus"></i> Agregar Vuelo
         </button>
       </div>
@@ -212,3 +212,12 @@
 <app-reservas-save *ngIf="mostrarModalSaveReserva && reservaSeleccionada" [isOpen]="mostrarModalSaveReserva"
   [reservaToEdit]="reservaSeleccionada" (onClose)="cerrarModalSaveReserva()" (onSave)="GuardarReserva($event)">
 </app-reservas-save>
+
+<!-- Modal para Agregar Vuelo -->
+<app-vuelos-save [isOpen]="mostrarModalSaveAvion " (onClose)="cerrarModal()" (onSave)="guardarVuelo($event)">
+</app-vuelos-save>
+
+<app-vuelos-edit *ngIf="mostrarModalEditar && vueloSeleccionado" [isOpen]="mostrarModalEditar"
+  [vueloToEdit]="vueloSeleccionado" (onClose)="cerrarModalEditar()" (onSave)="actualizarVuelo($event)">
+</app-vuelos-edit>
+

@@ -22,7 +22,7 @@ export class AvionSave {
     modelo: "",
     capacidad: 0,
     aerolinea: "",
-    estado: EstadoAvion.disponible,
+    estado: EstadoAvion.DISPONIBLE,
     fecha_fabricacion: ""
   }
 
@@ -44,7 +44,7 @@ export class AvionSave {
       modelo: "",
       capacidad: 0,
       aerolinea: "",
-      estado: EstadoAvion.disponible,
+      estado: EstadoAvion.DISPONIBLE,
       fecha_fabricacion: ""
     }
   }

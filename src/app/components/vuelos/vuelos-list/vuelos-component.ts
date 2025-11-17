@@ -9,6 +9,9 @@ import { ReservasSave } from '../../reservas/reservas-save/reservas-save/reserva
 import { Reserva } from '../../../models/reserva'
 import { VueloService } from '../../../services/vuelos/vuelo-service'
 import { ReservaService } from '../../../services/reservas/reserva-service'
+import { VuelosSave } from "../save/vuelos-save/vuelos-save";
+import { error } from 'console'
+import { VuelosEdit } from "../edit/vuelos-edit/vuelos-edit";
 
 
 // Interfaz para los datos del gráfico de destinos/aerolíneas
@@ -21,7 +24,7 @@ interface ChartData {
 @Component({
   selector: 'app-vuelos-component',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReservasSave],
+  imports: [CommonModule, FormsModule, ReservasSave, VuelosSave, VuelosEdit],
   templateUrl: './vuelos-component.html',
   styleUrls: ['./vuelos-component.scss'],
 })
@@ -47,6 +50,10 @@ export class VuelosComponent implements OnInit {
   destinations: ChartData[] = []
 
   mostrarModalSaveReserva = false;
+  mostrarModalSaveAvion = false;
+  mostrarModalEditar = false;
+  vueloSeleccionado: Vuelo | null = null;
+
   reservaSeleccionada: Reserva | null = null;
   vueloSeleccionadoParaReserva: Vuelo | null = null;
 
@@ -181,10 +188,50 @@ export class VuelosComponent implements OnInit {
     this.mostrarModalSaveReserva = true;
   }
 
+  GuardarReserva(reserva:Reserva): void{
+    this.reservaService.crearReserva(reserva).subscribe({
+      next: () => {
+        alert('Reserva guardada con exito')
+        this.cerrarModalSaveReserva()
+        this.loadVuelosData()
+      },
+      error: () => alert('Error al guardar la reserva')
+    })
+  }
+
+  guardarVuelo(vuelo: Vuelo): void {
+    this.vueloService.saveVuelo(vuelo).subscribe({
+      next: () => {
+        alert('Vuelo guardado correctamente')
+        this.cerrarModal()
+        this.loadVuelosData()
+      },
+      error: () => alert('Error al guardar el vuelo')
+    })
+  }
+
+  openModalSaveAvion(): void {
+    this.mostrarModalSaveAvion = true;
+  }
+
+
   // 🔹 Métodos para el modal (Mantenidos)
   cerrarModalSaveReserva(): void {
     this.mostrarModalSaveReserva = false;
     this.reservaSeleccionada = null;
+  }
+
+  cerrarModal(): void{
+    this.mostrarModalSaveAvion = false;
+  }
+
+  openModalEditar(): void {
+    this.mostrarModalEditar = true;
+  }
+
+
+  cerrarModalEditar(): void {
+    this.mostrarModalEditar = false;
   }
 
   // 🔹 Mostrar/ocultar menú de usuario (Mantenido)
@@ -208,20 +255,39 @@ export class VuelosComponent implements OnInit {
     this.isUserMenuOpen = false
   }
 
-  GuardarReserva(reserva:Reserva): void{
-    this.reservaService.crearReserva(reserva).subscribe({
+  actualizarVuelo(vueloEditado: Vuelo): void {
+    if (!vueloEditado.codigoVuelo) {
+      alert("Error: el vuelo no tiene un ID válido para actualizar.")
+      return
+    }
+    this.vueloService.updateVuelo(vueloEditado).subscribe({
       next: () => {
-        alert('Reserva guardada con exito')
-        this.cerrarModalSaveReserva()
+        alert("Vuelo actualizado correctamente")
+        this.cerrarModalEditar()
         this.loadVuelosData()
       },
-      error: () => alert('Error al guardar la reserva')
+      error: () => alert("Error al actualizar el vuelo")
     })
   }
 
-  editarVuelo(vuelo:Vuelo){}
+  eliminarVuelo(vuelo:Vuelo){
+    if(confirm(`¿Está seguro de eliminar el vuelo ${vuelo.codigoVuelo}?`)){
+      this.vueloService.deleteVuelo(vuelo.id!).subscribe({
+        next: () => {
+          this.loadVuelosData()
+          alert("Vuelo eliminado exitosamente")
+        },
+        error: () => {
+          alert("Error al eliminar el vuelo")
+        }
+      })
+    }
+    this.cdr.detectChanges()
+    }
 
-  eliminarVuelo(vuelo:Vuelo){}
+  editarVuelo(vuelo: Vuelo): void {
+    this.vueloSeleccionado = vuelo
+    this.openModalEditar()
+  }
 
-  agregarVuelo(){}
 }

@@ -8,5 +8,6 @@ export interface Pago{
     estado: EstadoPago,
     moneda: string,
     metodo_pago: MetodoPago,
-    reserva:string
+    reserva:string,
+    usuario:string
 }

@@ -195,9 +195,9 @@
                             <td>{{avion.aerolinea}}</td>
                             <td>
                                 <span class="badge" [ngClass]="{
-                                    'badge-green': avion.estado === 'disponible',
-                                    'badge-yellow': avion.estado === 'mantenimiento',
-                                    'badge-red': avion.estado === 'fuera_de_servicio'
+                                    'badge-green': avion.estado === 'DISPONIBLE',
+                                    'badge-yellow': avion.estado === 'MANTENIMIENTO',
+                                    'badge-red': avion.estado === 'FUERA_SERVICIO'
                                 }">
                                     {{avion.estado | titlecase}}
                                 </span>
