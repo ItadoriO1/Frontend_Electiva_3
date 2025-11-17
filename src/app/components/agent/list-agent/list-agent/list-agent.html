@@ -174,8 +174,11 @@
               <tbody>
                 <tr *ngFor="let row of table.rows; let r = index">
                   <td *ngFor="let col of table.columns">
-                    <input type="text" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}"
-                      class="form-control" />
+                    <ng-container [ngSwitch]="table.isReadOnly">
+                      <span *ngSwitchCase="true" class="readonly-cell">{{ table.rows[r][col] || '—' }}</span>
+                      <input *ngSwitchDefault type="text" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}"
+                        class="form-control" />
+                    </ng-container>
                   </td>
                 </tr>
               </tbody>
@@ -184,7 +187,8 @@
 
           <div class="table-footer actions">
             <button class="action-btn danger" (click)="removeTable(i)">Eliminar</button>
-            <button class="action-btn success" (click)="confirmTable(i)">Confirmar</button>
+            <button class="action-btn success" *ngIf="!table.isReadOnly" (click)="confirmTable(i)">Confirmar</button>
+            <span class="table-mode" *ngIf="table.isReadOnly">Solo lectura</span>
             <span class="table-info">{{ table.rows.length }} filas</span>
             <span class="table-timestamp">{{ table.timestamp }}</span>
           </div>

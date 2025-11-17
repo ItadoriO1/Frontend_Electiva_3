@@ -1,5 +1,5 @@
 export enum EstadoAvion {
-    DISPONIBLE = "DISPONIBLE",
-    MANTENIMIENTO = "MANTENIMIENTO",
-    FUERA_SERVICIO = "FUERA_SERVICIO"
+    disponible = "disponible",
+    mantenimiento = "mantenimiento",
+    fuera_de_servicio = "fuera_de_servicio"
 }

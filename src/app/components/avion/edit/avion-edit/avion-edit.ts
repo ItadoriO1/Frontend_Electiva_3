@@ -22,7 +22,7 @@ export class AvionEdit implements OnChanges {
     modelo: "",
     capacidad: 0,
     aerolinea: "",
-    estado: EstadoAvion.DISPONIBLE,
+    estado: EstadoAvion.disponible,
     fecha_fabricacion: ""
   }
 
@@ -60,7 +60,7 @@ export class AvionEdit implements OnChanges {
       modelo: "",
       capacidad: 0,
       aerolinea: "",
-      estado: EstadoAvion.DISPONIBLE,
+      estado: EstadoAvion.disponible,
       fecha_fabricacion: ""
     }
   }

@@ -20,6 +20,7 @@ interface DynamicTable {
   columns: string[]
   rows: Record<string, any>[]
   timestamp: string
+  isReadOnly: boolean
 }
 
 @Component({
@@ -57,6 +58,14 @@ export class ListAgent implements AfterViewChecked {
       title: "Formulario de Registro",
       columns: ["Nombre", "Apellido", "Cédula", "Teléfono", "Correo", "Contraseña", "Confirmar Contraseña"]
     },
+    "crear avion": {
+      title: "Formulario de Aviones",
+      columns: ["Numasiento", "aerolinea", "capacidad", "modelo", "usuario", "vuelo"]
+    },
+    "crear usuario": {
+      title: "Formulario de Usuario",
+      columns: ["cedula","nombre", "apellido", "telefono", "email", "contrasenia", "direccion"]
+    }
   }
 
   constructor(
@@ -119,12 +128,13 @@ export class ListAgent implements AfterViewChecked {
     return null
   }
 
-  private addDynamicTable(title: string, columns: string[], rows: Record<string, any>[]): void {
+  private addDynamicTable(title: string, columns: string[], rows: Record<string, any>[], options?: { isReadOnly?: boolean }): void {
     const newTable: DynamicTable = {
       title,
       columns,
       rows,
       timestamp: this.getCurrentTime(),
+      isReadOnly: options?.isReadOnly ?? false,
     }
     this.dynamicTables.push(newTable)
     console.log("[v0] 📊 Tabla dinámica agregada:", title, "con", rows.length, "filas")
@@ -175,15 +185,34 @@ export class ListAgent implements AfterViewChecked {
       next: (reply: unknown) => {
         this.ngZone.run(() => {
           try {
-            const replyText = this.responseFormatService.formatResponse(reply)
-            if (!replyText || replyText.trim() === '') {
-              throw new Error('Respuesta vacía del formateador')
+            const formatted = this.responseFormatService.formatResponse(reply)
+            const replyText = formatted.text?.trim()
+
+            if (!replyText) {
+              if (!formatted.table) {
+                throw new Error('Respuesta vacía del formateador')
+              }
+              this.messages.push({
+                text: '📊 Se generó una tabla con los resultados.',
+                type: "ai",
+                time: this.getCurrentTime(),
+              })
+            } else {
+              this.messages.push({
+                text: replyText,
+                type: "ai",
+                time: this.getCurrentTime(),
+              })
             }
-            this.messages.push({
-              text: replyText,
-              type: "ai",
-              time: this.getCurrentTime(),
-            })
+
+            if (formatted.table) {
+              this.addDynamicTable(
+                formatted.table.title,
+                formatted.table.columns,
+                formatted.table.rows,
+                { isReadOnly: true }
+              )
+            }
             this.isLoading = false
             this.shouldScroll = true
             this.cdr.detectChanges()
@@ -222,6 +251,10 @@ export class ListAgent implements AfterViewChecked {
    */
   confirmTable(index: number): void {
     const table = this.dynamicTables[index]
+    if (table.isReadOnly) {
+      console.warn("[confirmTable] ❌ La tabla es de solo lectura.")
+      return
+    }
 
     const rowsText = table.rows.map(row =>
       table.columns.map(col => `${col}: ${row[col]}`).join(", ")

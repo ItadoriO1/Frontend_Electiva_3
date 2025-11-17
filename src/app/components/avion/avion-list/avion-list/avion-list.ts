@@ -199,8 +199,8 @@ export class AvionList implements OnInit {
 
     // 2. Cálculo de estadísticas principales
     this.totalAviones = this.aviones.length;
-    this.avionesDisponibles = this.aviones.filter(a => a.estado === EstadoAvion.DISPONIBLE).length;
-    this.avionesMantenimiento = this.aviones.filter(a => a.estado === EstadoAvion.MANTENIMIENTO).length;
+    this.avionesDisponibles = this.aviones.filter(a => a.estado === EstadoAvion.disponible).length;
+    this.avionesMantenimiento = this.aviones.filter(a => a.estado === EstadoAvion.mantenimiento).length;
 
     // 3. Cálculo dinámico para Aerolíneas (Gráfico Circular)
     const aerolineaCounts = this.aviones.reduce((acc, avion) => {

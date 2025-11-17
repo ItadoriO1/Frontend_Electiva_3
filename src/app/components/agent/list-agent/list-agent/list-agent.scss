@@ -1,3 +1,17 @@
+.readonly-cell {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #f4f4f4;
+}
+
+.table-mode {
+  font-size: 0.8rem;
+  color: #b2b2b2;
+  text-transform: uppercase;
+}
 /* Reset y configuración base */
 * {
   margin: 0;
