@@ -174,11 +174,20 @@
               <tbody>
                 <tr *ngFor="let row of table.rows; let r = index">
                   <td *ngFor="let col of table.columns">
-                    <ng-container [ngSwitch]="table.isReadOnly">
-                      <span *ngSwitchCase="true" class="readonly-cell">{{ table.rows[r][col] || '—' }}</span>
-                      <input *ngSwitchDefault type="text" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}"
-                        class="form-control" />
+                    <ng-container *ngIf="table.isReadOnly; else editableCell">
+                      <span class="readonly-cell">{{ table.rows[r][col] || '—' }}</span>
                     </ng-container>
+                    <ng-template #editableCell>
+                      <ng-container [ngSwitch]="getFieldType(table.title, col)">
+                        <select *ngSwitchCase="'select'" [(ngModel)]="table.rows[r][col]" class="form-control">
+                          <option *ngFor="let opt of getSelectOptions(table.title, col)" [value]="opt">{{ opt }}</option>
+                        </select>
+                        <input *ngSwitchCase="'number'" type="number" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}" class="form-control" />
+                        <input *ngSwitchCase="'date'" type="date" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}" class="form-control" />
+                        <input *ngSwitchCase="'time'" type="time" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}" class="form-control" />
+                        <input *ngSwitchDefault type="text" [(ngModel)]="table.rows[r][col]" placeholder="Ingrese {{ col }}" class="form-control" />
+                      </ng-container>
+                    </ng-template>
                   </td>
                 </tr>
               </tbody>
@@ -187,7 +196,7 @@
 
           <div class="table-footer actions">
             <button class="action-btn danger" (click)="removeTable(i)">Eliminar</button>
-            <button class="action-btn success" *ngIf="!table.isReadOnly" (click)="confirmTable(i)">Confirmar</button>
+            <button class="action-btn success" *ngIf="!table.isReadOnly" (click)="confirmTable(i)" [disabled]="isLoading">Confirmar</button>
             <span class="table-mode" *ngIf="table.isReadOnly">Solo lectura</span>
             <span class="table-info">{{ table.rows.length }} filas</span>
             <span class="table-timestamp">{{ table.timestamp }}</span>
